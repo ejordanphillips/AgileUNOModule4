@@ -1,0 +1,59 @@
+# Jordan Phillips
+# Module 4 Assignment
+
+from sys import exit
+from random import randint
+
+# Create a new dictionary
+
+myData = {}
+
+# Create a variable called guesses
+
+guesses = 0
+
+# Create a variable called wins
+
+wins = 0
+
+with open("questions.txt", "r") as infile:
+    questions = infile.readlines()
+    for question in questions:      # For loop
+        if "first" in question:
+            myData["first_name"] = input(question)
+        elif "last" in question:
+            myData["last_name"] = input(question)
+        else:
+            print("Bad question in input file.")
+            exit()
+
+for play in range(10):
+    number = randint(0, 100)
+    solved = False
+    while not solved:
+        guess = int(input(f"Guess a number from 0 to 100: "))
+        guesses += 1
+        if guess == number:
+            print(f"Great job, {myData['first_name']}, your guess of {guess} is correct!")
+            wins += 1
+            solved = True
+            break
+
+        if guess != number:
+            print(f"Your guess of {guess} is incorrect.")
+        if guess > number:
+            print(f"Sorry, your guess was too high.")
+        elif guess < number:
+            print(f"Sorry, your guess was too low.")
+        else:
+            pass
+    if solved:
+        print(f"Let's play again! You have completed {wins} out of 10 plays.")
+        continue
+
+print(f"{myData['first_name']}{myData['last_name']} guessed the correct number {wins} out of 10 plays.")
+exit()
+
+
+
+
